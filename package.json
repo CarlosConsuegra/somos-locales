@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "webpack --mode production",
+    "build": "webpack --config webpack.prod.config.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
@@ -58,5 +58,5 @@
   "bugs": {
     "url": "https://github.com/CarlosConsuegra/somos-locales/issues"
   },
-  "homepage": "https://https://carlosconsuegra.github.io/somos-locales/"
+  "homepage": "https://github.com/CarlosConsuegra/somos-locales"
 }
