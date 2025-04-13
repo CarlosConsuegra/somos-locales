@@ -1,48 +1,48 @@
-// Design tokens extracted from Zeplin
 export const colors = {
-  primary: '#FFD600', // Yellow from buttons and highlights
-  secondary: '#333333', // Dark background
-  textPrimary: '#FFFFFF', // White text on dark background
-  textSecondary: '#333333', // Dark text on light background
-  accent: '#40C786', // Green from success indicators
-  background: {
-    dark: '#1A1A1A', // Dark background
-    light: '#FFFFFF', // White background
-    yellow: '#FFD600', // Yellow section background
-  },
-  border: '#E0E0E0',
+  primary: '#FFD600', // Yellow color (somos-locales)
+  secondary: '#EC4899', // Pink color used for progress bar and links
+  black: '#262623', // Dark background
+  white: '#FFFFFF', // White background
+  gray: '#A8A29E', // Gray color for text
+  inputBorder: '#D5D7DA', // Border color for inputs
 };
 
 export const typography = {
   heading1: {
+    fontFamily: 'Poppins, sans-serif',
     fontSize: '28px',
-    fontWeight: '700',
+    fontWeight: '600',
     lineHeight: '1.2',
   },
   heading2: {
+    fontFamily: 'Poppins, sans-serif',
     fontSize: '24px',
     fontWeight: '600',
-    lineHeight: '1.3',
-  },
-  heading3: {
-    fontSize: '20px',
-    fontWeight: '600',
-    lineHeight: '1.3',
+    lineHeight: '1.2',
   },
   body: {
+    fontFamily: 'Poppins, sans-serif',
     fontSize: '16px',
-    fontWeight: '400',
+    fontWeight: 'normal',
+    lineHeight: '1.5',
+  },
+  bodyMedium: {
+    fontFamily: 'Poppins, sans-serif',
+    fontSize: '16px',
+    fontWeight: '500',
     lineHeight: '1.5',
   },
   small: {
+    fontFamily: 'Poppins, sans-serif',
     fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '1.4',
+    fontWeight: 'normal',
+    lineHeight: '1.5',
   },
   button: {
+    fontFamily: 'Poppins, sans-serif',
     fontSize: '16px',
     fontWeight: '600',
-    lineHeight: '1.2',
+    lineHeight: '1.5',
   },
 };
 
@@ -59,13 +59,11 @@ export const borderRadius = {
   small: '4px',
   medium: '8px',
   large: '16px',
-  pill: '999px',
 };
 
 export const shadows = {
   card: '0 4px 8px rgba(0, 0, 0, 0.1)',
   button: '0 2px 4px rgba(0, 0, 0, 0.2)',
-  elevated: '0 8px 16px rgba(0, 0, 0, 0.15)',
 };
 
 export const breakpoints = {
@@ -74,4 +72,3 @@ export const breakpoints = {
   desktop: '1024px',
   wide: '1280px',
 };
-

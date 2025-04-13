@@ -1,7 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
-import { colors, typography } from './tokens';
 
 const GlobalStyles = createGlobalStyle`
+  :root {
+    --somos-locales: #FFD600;
+    --black: #262623;
+    --white: #FFFFFF;
+    --sec: #ec4899;
+    --gray: #a8a29e;
+    --input-border: #d5d7da;
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -9,48 +17,36 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html, body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: ${colors.background.light};
-    color: ${colors.textSecondary};
-    line-height: ${typography.body.lineHeight};
-    font-size: ${typography.body.fontSize};
-    font-weight: ${typography.body.fontWeight};
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--white);
+    color: var(--black);
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: normal;
+    height: 100%;
   }
 
-  h1 {
-    font-size: ${typography.heading1.fontSize};
-    font-weight: ${typography.heading1.fontWeight};
-    line-height: ${typography.heading1.lineHeight};
-    margin-bottom: 16px;
+  #root {
+    height: 100%;
   }
 
-  h2 {
-    font-size: ${typography.heading2.fontSize};
-    font-weight: ${typography.heading2.fontWeight};
-    line-height: ${typography.heading2.lineHeight};
-    margin-bottom: 12px;
-  }
-
-  h3 {
-    font-size: ${typography.heading3.fontSize};
-    font-weight: ${typography.heading3.fontWeight};
-    line-height: ${typography.heading3.lineHeight};
-    margin-bottom: 8px;
-  }
-
-  p {
-    margin-bottom: 16px;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
   }
 
   button {
-    font-family: inherit;
+    font-family: 'Poppins', sans-serif;
   }
 
   a {
     text-decoration: none;
     color: inherit;
   }
+
+  input, button {
+    outline: none;
+  }
 `;
 
 export default GlobalStyles;
-

@@ -1,631 +1,966 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// Styled components for the landing page
+const PageContainer = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #262623;
+  color: white;
+`;
+
+// Header/Navigation
+const Header = styled.header`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 36px 120px;
+  box-sizing: border-box;
+  max-width: 1366px;
+  margin: 0 auto;
+`;
+
+const LogoLink = styled.div`
+  color: #FFD600;
+  font-weight: bold;
+  font-size: 50px;
+  font-family: 'Poppins', sans-serif;
+`;
+
+const NavContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NavLink = styled.a`
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 32px;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const LoginButton = styled(Link)`
+  background-color: #FFD600;
+  color: #262623;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+`;
+
+// Main Container to control the height and width
+const MainContainer = styled.div`
+  max-width: 1366px;
+  margin: 0 auto;
+  position: relative;
+`;
+
+// Hero Section with fixed height
+const HeroSection = styled.div`
+  position: relative;
+  width: 100%;
+  height: 673px;
+  background-image: url('/assets/Principal_Section.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
+const SomosLocalesLogo = styled.div`
+  position: absolute;
+  top: 158px;
+  right: 195px;
+  width: 214px;
+`;
+
+const LogoImage = styled.img`
+  width: 100%;
+`;
+
+const HashtagText = styled.div`
+  position: absolute;
+  bottom: 180px;
+  left: 157px;
+  font-size: 34px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+`;
+
+// Registration Section
+const RegistrationCard = styled.div`
+  position: absolute;
+  top: 320px;
+  right: 120px;
+  width: 350px;
+  background-color: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+`;
+
+const FormHeading = styled.h3`
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 4px;
+`;
+
+const FormSubheading = styled.p`
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 16px;
+`;
+
+const ProgressBar = styled.div`
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  position: relative;
+`;
+
+const ProgressFill = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 33.33%;
+  background-color: #ec4899;
+  border-radius: 2px;
+`;
+
+const StepText = styled.p`
+  color: #ec4899;
+  font-size: 12px;
+  margin-bottom: 16px;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 16px;
+`;
+
+const FormLabel = styled.label`
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+`;
+
+const FormInput = styled.input`
+  width: 100%;
+  height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  
+  &::placeholder {
+    color: #999;
+  }
+`;
+
+const SubmitButton = styled.button`
+  width: 100%;
+  height: 40px;
+  background-color: #FFD600;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+`;
+
+const Divider = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  
+  &:before, &:after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  span {
+    padding: 0 10px;
+    color: #999;
+    font-size: 12px;
+  }
+`;
+
+const GoogleButton = styled.button`
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+const GoogleIcon = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+`;
+
+const LoginText = styled.p`
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-top: 16px;
+  
+  a {
+    color: #333;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+// Content Section
+const ContentSection = styled.section`
+  padding: 60px 120px;
+  background-color: #262623;
+`;
+
+const ContentContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const ContentTitle = styled.h2`
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 16px;
+`;
+
+const ContentText = styled.p`
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  max-width: 600px;
+`;
+
+const HighlightText = styled.p`
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFD600;
+  margin-bottom: 40px;
+`;
+
+// Features Section
+const FeaturesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+`;
+
+const FeatureCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+const FeatureIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+`;
+
+const FeatureTitle = styled.h3`
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+`;
+
+const FeatureDescription = styled.p`
+  font-size: 14px;
+  line-height: 1.5;
+`;
+
+// Platform Section matching the new screenshot - with width set to match hero section
+const PlatformSection = styled.section`
+  background-color: #FFD600;
+  color: #262623;
+  padding: 80px 0;
+  border-radius: 60px 60px 0 0;
+  max-width: 1366px;
+  margin: 0 auto;
+`;
+
+const PlatformContainer = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+`;
+
+const PlatformTitle = styled.h2`
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+`;
+
+const PlatformDescription = styled.p`
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+`;
+
+const PhoneShowcase = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+const PhoneSlider = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+`;
+
+const CenterPhone = styled.div`
+  z-index: 2;
+  position: relative;
+  
+  img {
+    height: 480px;
+    display: block;
+  }
+`;
+
+const SidePhone = styled.div`
+  position: absolute;
+  z-index: 1;
+  
+  img {
+    height: 400px;
+    display: block;
+    opacity: 0.8;
+  }
+  
+  &.left {
+    left: 80px;
+  }
+  
+  &.right {
+    right: 80px;
+  }
+`;
+
+const SliderArrow = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #000;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  z-index: 3;
+  
+  &.prev {
+    left: 5%;
+  }
+  
+  &.next {
+    right: 5%;
+  }
+`;
+
+const SliderDots = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+`;
+
+const SliderDot = styled.button`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${props => props.active ? '#ec4899' : 'rgba(0, 0, 0, 0.2)'};
+  border: none;
+  padding: 0;
+  cursor: pointer;
+`;
+
+// Team Section - UPDATED with swapped positions
+const TeamSection = styled.div`
+  padding: 60px 0;
+  background-color: #FFD600;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+`;
+
+const TeamContainer = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 40px;
+  }
+`;
+
+const TeamInfo = styled.div`
+  max-width: 400px;
+  text-align: right; /* Right-aligned text */
+`;
+
+const TeamTitle = styled.h2`
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
+`;
+
+const TeamSubtitle = styled.p`
+  font-size: 16px;
+  margin-bottom: 16px;
+`;
+
+const TeamLink = styled.a`
+  display: inline;
+  color: #ec4899;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const TeamMembers = styled.div`
+  display: flex;
+  gap: 40px;
+`;
+
+const TeamMember = styled.div`
+  text-align: center;
+`;
+
+const MemberPhoto = styled.img`
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+`;
+
+const MemberName = styled.h3`
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #262623;
+`;
+
+const MemberRole = styled.p`
+  font-size: 14px;
+  color: #262623;
+`;
+
+// Community Section - NEW
+const CommunitySection = styled.section`
+  background-image: url('/assets/frame-42731898.png');
+  background-size: cover;
+  background-position: center;
+  padding: 80px 0;
+  position: relative;
+  max-width: 1366px;
+  margin: 0 auto;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+  }
+`;
+
+const CommunityContainer = styled.div`
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const CommunityContent = styled.div`
+  color: white;
+`;
+
+const CommunityTitle = styled.h2`
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #FFD600;
+`;
+
+const CommunityText = styled.p`
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 450px;
+`;
+
+const CommunityForm = styled.div`
+  align-self: center;
+`;
+
+const CommunityInput = styled.input`
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+`;
+
+const CommunityButton = styled.button`
+  width: 100%;
+  height: 48px;
+  background-color: #FFD600;
+  color: #262623;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 8px;
+`;
+
+const TermsText = styled.p`
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+`;
+
+// Footer Section
+const FooterSection = styled.footer`
+  background-color: #262623;
+  color: white;
+  padding: 60px 40px 30px;
+  max-width: 1366px;
+  margin: 0 auto;
+`;
+
+const FooterContainer = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const FooterLogo = styled.div`
+  margin-bottom: 24px;
+  
+  img {
+    height: 40px;
+  }
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+`;
+
+const SocialLink = styled.a`
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  font-size: 16px;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+`;
+
+const FooterColumn = styled.div``;
+
+const FooterTitle = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFD600;
+  margin-bottom: 24px;
+`;
+
+const FooterLinks = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const FooterLink = styled.li`
+  margin-bottom: 12px;
+  
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const Copyright = styled.div`
+  text-align: center;
+  padding-top: 40px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+`;
+
 function HomePage() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: ''
+  });
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.location.href = '/register';
+  };
+  
   return (
-    <div>
-      {/* Navigation/Header */}
-      <header style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        padding: '16px 24px',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 10
-      }}>
-        <div style={{ color: '#FFD600', fontWeight: 'bold', fontSize: '24px' }}>SL</div>
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-          <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>Inicio</Link>
-          <Link to="/about" style={{ color: 'white', textDecoration: 'none' }}>Nosotros</Link>
-          <Link to="/login" style={{ 
-            padding: '8px 16px', 
-            backgroundColor: '#FFD600', 
-            color: 'black', 
-            textDecoration: 'none', 
-            borderRadius: '4px',
-            fontWeight: 'bold'
-          }}>
-            Inicia sesión
-          </Link>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section style={{ 
-        backgroundImage: "url('/assets/Principal_Section.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 24px'
-      }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
-          display: 'flex', 
-          justifyContent: 'space-between',
-          width: '100%',
-          zIndex: 1
-        }}>
-          {/* Left content */}
-          <div style={{ maxWidth: '500px', color: 'white' }}>
-            <h1 style={{ fontSize: '36px', marginBottom: '16px' }}>Somos Locales</h1>
-            <p style={{ fontSize: '16px', lineHeight: 1.6, marginBottom: '24px' }}>
-              Somos una plataforma deportiva que te ofrece una experiencia única y emocionante. 
-              Participa en quinielas, reta a tus amigos y demuestra quién sabe más. 
-              Encuentras horarios, boletos y los mejores tips para disfrutar del fútbol 
-              femenil o masculino.
-            </p>
-            <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#FFD600', marginBottom: '24px' }}>
-              ¡Únete y vive la pasión!
-            </p>
-            <div style={{ fontSize: '24px', fontWeight: 'bold' }}>#TIENESQUEVIVIRLO</div>
-          </div>
-
-          {/* Right content - Registration form */}
-          <div style={{ 
-            maxWidth: '380px', 
-            backgroundColor: 'white', 
-            padding: '24px', 
-            borderRadius: '8px',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
-          }}>
-            <h2 style={{ textAlign: 'center', fontSize: '20px', marginBottom: '4px', color: '#333' }}>Regístrate</h2>
-            <p style={{ textAlign: 'center', fontSize: '14px', marginBottom: '16px', color: '#666' }}>
-              ¡Sé parte de SomosLocales!
-            </p>
+    <PageContainer>
+      <MainContainer>
+        {/* Header */}
+        <Header>
+          <LogoLink>SL</LogoLink>
+          <NavContainer>
+            <NavLink href="/">Inicio</NavLink>
+            <NavLink href="/nosotros">Nosotros</NavLink>
+            <LoginButton to="/login">Inicia sesión</LoginButton>
+          </NavContainer>
+        </Header>
+        
+        {/* Hero Section */}
+        <HeroSection>
+          <SomosLocalesLogo>
+            <LogoImage src="/assets/recurso-6-3-x-1.png" alt="Somos Locales" />
+          </SomosLocalesLogo>
+          
+          <HashtagText>#TIENESQUEVIVIRLO</HashtagText>
+          
+          {/* Registration Card - No white "Registrate" title */}
+          <RegistrationCard>
+            <FormHeading>Regístrate</FormHeading>
+            <FormSubheading>¡Sé parte de SomosLocales!</FormSubheading>
             
-            {/* Progress bar */}
-            <div style={{ 
-              height: '4px', 
-              backgroundColor: '#e0e0e0', 
-              borderRadius: '2px',
-              position: 'relative',
-              marginBottom: '8px'
-            }}>
-              <div style={{ 
-                position: 'absolute',
-                height: '100%',
-                width: '33.33%',
-                backgroundColor: '#ec4899',
-                borderRadius: '2px'
-              }}></div>
-            </div>
-            <p style={{ color: '#ec4899', fontSize: '14px', marginBottom: '16px' }}>Paso 1/3</p>
+            <ProgressBar>
+              <ProgressFill />
+            </ProgressBar>
+            <StepText>Paso 1/3</StepText>
             
-            {/* Registration form */}
-            <form>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '14px', marginBottom: '4px', color: '#333' }}>
-                  Nombre completo
-                </label>
-                <input 
+            <form onSubmit={handleSubmit}>
+              <FormGroup>
+                <FormLabel>Nombre completo</FormLabel>
+                <FormInput 
                   type="text" 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Escribe tu nombre completo"
-                  style={{ 
-                    width: '100%', 
-                    padding: '12px', 
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    fontSize: '14px'
-                  }}
                 />
-              </div>
+              </FormGroup>
               
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '14px', marginBottom: '4px', color: '#333' }}>
-                  Correo electrónico
-                </label>
-                <input 
+              <FormGroup>
+                <FormLabel>Correo electrónico</FormLabel>
+                <FormInput 
                   type="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Escribe tu correo electrónico"
-                  style={{ 
-                    width: '100%', 
-                    padding: '12px', 
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    fontSize: '14px'
-                  }}
                 />
-              </div>
+              </FormGroup>
               
-              <button 
-                type="submit"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  backgroundColor: '#FFD600',
-                  color: '#000',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  fontSize: '14px'
-                }}
-              >
-                Siguiente
-              </button>
+              <SubmitButton type="submit">Siguiente</SubmitButton>
             </form>
             
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              margin: '16px 0', 
-              color: '#999', 
-              fontSize: '12px' 
-            }}>
-              <span style={{ flex: 1, borderBottom: '1px solid #ddd' }}></span>
-              <span style={{ padding: '0 10px' }}>o</span>
-              <span style={{ flex: 1, borderBottom: '1px solid #ddd' }}></span>
-            </div>
+            <Divider>
+              <span>o</span>
+            </Divider>
             
-            <button 
-              style={{
-                width: '100%',
-                padding: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                backgroundColor: 'white',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            >
-              <img src="/assets/social-icon.png" alt="Google" style={{ width: '18px', height: '18px' }} />
+            <GoogleButton>
+              <GoogleIcon src="/assets/social-icon.svg" alt="Google" />
               Continuar con Google
-            </button>
+            </GoogleButton>
             
-            <p style={{ textAlign: 'center', fontSize: '12px', marginTop: '16px' }}>
-              ¿Ya tienes una cuenta? 
-              <Link to="/login" style={{ color: '#ec4899', marginLeft: '5px' }}>
-                Inicia sesión
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section style={{ 
-        padding: '60px 24px', 
-        backgroundColor: '#262623',
-        color: 'white'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ 
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '32px'
-          }}>
-            {/* Feature 1 */}
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ margin: '0 auto 16px', width: '80px', height: '80px' }}>
-                <img src="/assets/layout-241.png" alt="Guías de estadios" style={{ width: '100%' }} />
-              </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>Guías de estadios</h3>
-              <p style={{ fontSize: '14px', lineHeight: 1.5 }}>
+            <LoginText>
+              ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+            </LoginText>
+          </RegistrationCard>
+        </HeroSection>
+      </MainContainer>
+      
+      {/* Content Section */}
+      <ContentSection>
+        <ContentContainer>
+          <ContentTitle>Somos Locales</ContentTitle>
+          <ContentText>
+            Somos una plataforma deportiva que te ofrece una experiencia única y emocionante. 
+            Participa en quinielas, reta a tus amigos y demuestra quién sabe más. 
+            Encuentras horarios, boletos y los mejores tips para disfrutar del fútbol femenil o masculino.
+          </ContentText>
+          <HighlightText>¡Únete y vive la pasión!</HighlightText>
+          
+          <FeaturesGrid>
+            <FeatureCard>
+              <FeatureIcon>
+                <img src="/assets/layout-241.png" alt="Guías de estadios" />
+              </FeatureIcon>
+              <FeatureTitle>Guías de estadios</FeatureTitle>
+              <FeatureDescription>
                 Encuentra información de cada estadio, cómo llegar, donde comer, hospedarte y eventos previos.
-              </p>
-            </div>
+              </FeatureDescription>
+            </FeatureCard>
             
-            {/* Feature 2 */}
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ margin: '0 auto 16px', width: '80px', height: '80px' }}>
-                <img src="/assets/app-screen-shot.png" alt="Quiniela" style={{ width: '100%' }} />
-              </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>Quiniela</h3>
-              <p style={{ fontSize: '14px', lineHeight: 1.5 }}>
+            <FeatureCard>
+              <FeatureIcon>
+                <img src="/assets/app-screen-shot.png" alt="Quiniela" />
+              </FeatureIcon>
+              <FeatureTitle>Quiniela</FeatureTitle>
+              <FeatureDescription>
                 Reta a tus amigos en la quiniela y demuestra quién es el verdadero experto mientras disfrutas del futbol.
-              </p>
-            </div>
+              </FeatureDescription>
+            </FeatureCard>
             
-            {/* Feature 3 */}
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ margin: '0 auto 16px', width: '80px', height: '80px' }}>
-                <img src="/assets/property-1-image-background-lummi.png" alt="Gana recompensas" style={{ width: '100%' }} />
-              </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>Gana recompensas</h3>
-              <p style={{ fontSize: '14px', lineHeight: 1.5 }}>
+            <FeatureCard>
+              <FeatureIcon>
+                <img src="/assets/property-1-image-background-lummi.png" alt="Gana recompensas" />
+              </FeatureIcon>
+              <FeatureTitle>Gana recompensas</FeatureTitle>
+              <FeatureDescription>
                 Suma puntos, sube en el ranking y compite por increíbles premios mientras disfrutas del futbol.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* App Showcase Section */}
-      <section style={{ 
-        padding: '60px 24px', 
-        backgroundColor: '#FFD600',
-        color: '#262623'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '28px', fontWeight: 'bold', textAlign: 'center', marginBottom: '16px' }}>
-            Conoce la plataforma
-          </h2>
-          <p style={{ 
-            fontSize: '16px', 
-            lineHeight: 1.5, 
-            textAlign: 'center', 
-            maxWidth: '800px', 
-            margin: '0 auto 40px' 
-          }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra nunc ante velit vitae. Est tellus vitae, nullam lobortis enim. Consectetur amet, lacus, amet, quis risus. Ullamcorper nulla risus, ac libero, libero amet, ligula. Risus!
-          </p>
+              </FeatureDescription>
+            </FeatureCard>
+          </FeaturesGrid>
+        </ContentContainer>
+      </ContentSection>
+      
+      {/* Platform Section - Based on the screenshot */}
+      <PlatformSection>
+        <PlatformContainer>
+          <PlatformTitle>Conoce la plataforma</PlatformTitle>
+          <PlatformDescription>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra nunc ante velit vitae. Est tellus vitae, nullam lobortis enim. Faucibus amet etiam tincidunt rhoncus, ullamcorper velit. Ullamcorper risus tempor, ac nunc libero urna, feugiat.
+          </PlatformDescription>
           
-          {/* App screenshots slider */}
-          <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center' }}>
-              <img 
-                src="/assets/app-screen-shot.png" 
-                alt="App Screenshot" 
-                style={{ 
-                  maxWidth: '100%',
-                  height: 'auto',
-                  boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
-                  borderRadius: '16px'
-                }} 
-              />
-            </div>
+          <PhoneShowcase>
+            <SliderArrow className="prev">‹</SliderArrow>
             
-            {/* Navigation dots */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', gap: '8px' }}>
-              <button style={{ 
-                width: '10px', 
-                height: '10px', 
-                borderRadius: '50%', 
-                backgroundColor: '#ec4899', 
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer'
-              }}></button>
-              <button style={{ 
-                width: '10px', 
-                height: '10px', 
-                borderRadius: '50%', 
-                backgroundColor: 'rgba(0, 0, 0, 0.2)', 
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer'
-              }}></button>
-              <button style={{ 
-                width: '10px', 
-                height: '10px', 
-                borderRadius: '50%', 
-                backgroundColor: 'rgba(0, 0, 0, 0.2)', 
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer'
-              }}></button>
-              <button style={{ 
-                width: '10px', 
-                height: '10px', 
-                borderRadius: '50%', 
-                backgroundColor: 'rgba(0, 0, 0, 0.2)', 
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer'
-              }}></button>
-              <button style={{ 
-                width: '10px', 
-                height: '10px', 
-                borderRadius: '50%', 
-                backgroundColor: 'rgba(0, 0, 0, 0.2)', 
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer'
-              }}></button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section style={{ 
-        padding: '60px 24px', 
-        backgroundColor: '#FFD600',
-        color: '#262623',
-        borderTop: '1px solid rgba(0, 0, 0, 0.1)'
-      }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <div style={{ maxWidth: '400px' }}>
-            <h2 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '16px' }}>
-              El Corazón del Fútbol
-            </h2>
-            <p style={{ fontSize: '16px', marginBottom: '24px' }}>
-              La esencia de las gradas en tu hogar.
-            </p>
-            <button style={{ 
-              background: 'none',
-              border: '2px solid #262623',
-              borderRadius: '4px',
-              padding: '10px 20px',
-              fontSize: '14px',
-              fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>
-              Conócenos +
-            </button>
-          </div>
+            <PhoneSlider>
+              <SidePhone className="left">
+                <img src="/assets/app-screenshot@2x.png" alt="App Screenshot" />
+              </SidePhone>
+              
+              <CenterPhone>
+                <img src="/assets/app-screen-shot.png" alt="App Screenshot" />
+              </CenterPhone>
+              
+              <SidePhone className="right">
+                <img src="/assets/app-screenshot@3x.png" alt="App Screenshot" />
+              </SidePhone>
+            </PhoneSlider>
+            
+            <SliderArrow className="next">›</SliderArrow>
+          </PhoneShowcase>
           
-          <div style={{ display: 'flex', gap: '24px' }}>
-            <div style={{ textAlign: 'center' }}>
-              <img 
-                src="/assets/image-lummi-avatar.png" 
-                alt="Karla H. Váldez" 
-                style={{ 
-                  width: '120px',
-                  height: '120px',
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  marginBottom: '12px'
-                }} 
-              />
-              <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '4px' }}>
-                Karla H. Váldez
-              </h3>
-              <p style={{ fontSize: '14px', color: '#555' }}>
-                CEO & Fundadora
-              </p>
-            </div>
-            
-            <div style={{ textAlign: 'center' }}>
-              <img 
-                src="/assets/image-lummi-avatar-2.png" 
-                alt="Ana Paulina Sosa" 
-                style={{ 
-                  width: '120px',
-                  height: '120px',
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  marginBottom: '12px'
-                }} 
-              />
-              <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '4px' }}>
-                Ana Paulina Sosa
-              </h3>
-              <p style={{ fontSize: '14px', color: '#555' }}>
-                CTO & Fundadora
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Community Section */}
-      <section style={{ 
-        padding: '60px 24px', 
-        backgroundImage: "url('/assets/frame-42731898.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        color: 'white',
-        position: 'relative'
-      }}>
-        <div style={{ 
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          zIndex: 1
-        }}></div>
-        
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
-          position: 'relative',
-          zIndex: 2,
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '40px'
-        }}>
-          <div>
-            <h2 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '16px', color: '#FFD600' }}>
-              Únete a la comunidad
-            </h2>
-            <p style={{ fontSize: '16px', lineHeight: 1.5 }}>
+          <SliderDots>
+            <SliderDot active />
+            <SliderDot />
+            <SliderDot />
+            <SliderDot />
+            <SliderDot />
+          </SliderDots>
+          
+          {/* Team Section - With swapped positions */}
+          <TeamSection>
+            <TeamContainer>
+              <TeamMembers>
+                <TeamMember>
+                  <MemberPhoto src="/assets/image-lummi-avatar.png" alt="Karla H. Valdez" />
+                  <MemberName>Karla H. Valdez</MemberName>
+                  <MemberRole>CEO & Fundadora</MemberRole>
+                </TeamMember>
+                
+                <TeamMember>
+                  <MemberPhoto src="/assets/image-lummi-avatar-2.png" alt="Ana Paulina Sosa" />
+                  <MemberName>Ana Paulina Sosa</MemberName>
+                  <MemberRole>CEO & Fundadora</MemberRole>
+                </TeamMember>
+              </TeamMembers>
+              
+              <TeamInfo>
+                <TeamTitle>El Corazón del Fútbol</TeamTitle>
+                <TeamSubtitle>La esencia de las gradas en tu hogar.</TeamSubtitle>
+                <TeamLink href="#">Conócenos</TeamLink>
+              </TeamInfo>
+            </TeamContainer>
+          </TeamSection>
+        </PlatformContainer>
+      </PlatformSection>
+      
+      {/* Community Section - NEW */}
+      <CommunitySection>
+        <CommunityContainer>
+          <CommunityContent>
+            <CommunityTitle>Únete a la comunidad</CommunityTitle>
+            <CommunityText>
               Interactúa con otros aficionados, comparte tus experiencias en las tribunas, y únete a conversaciones emocionantes sobre el deporte que amamos.
-            </p>
+            </CommunityText>
+          </CommunityContent>
+          
+          <CommunityForm>
+            <CommunityInput type="email" placeholder="Escribe tu correo electrónico" />
+            <CommunityButton>Regístrame</CommunityButton>
+            <TermsText>
+              Al hacer clic en "Regístrame", estoy de acuerdo con los Términos y condiciones.
+            </TermsText>
+          </CommunityForm>
+        </CommunityContainer>
+      </CommunitySection>
+      
+      {/* Footer Section */}
+      <FooterSection>
+        <FooterContainer>
+          <div>
+            <FooterLogo>
+              <img src="/assets/recurso-6-3-x-1.png" alt="Somos Locales" />
+            </FooterLogo>
+            <SocialLinks>
+              <SocialLink href="#">f</SocialLink>
+              <SocialLink href="#">t</SocialLink>
+              <SocialLink href="#">i</SocialLink>
+              <SocialLink href="#">y</SocialLink>
+            </SocialLinks>
           </div>
           
-          <div>
-            <form>
-              <input 
-                type="email" 
-                placeholder="Escribe tu correo electrónico"
-                style={{ 
-                  width: '100%', 
-                  padding: '12px', 
-                  marginBottom: '16px',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  borderRadius: '4px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  color: 'white',
-                  fontSize: '14px'
-                }}
-              />
-              <button 
-                type="submit"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  backgroundColor: '#FFD600',
-                  color: '#262623',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  fontSize: '14px'
-                }}
-              >
-                Regístrame
-              </button>
-            </form>
-            <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.7)', marginTop: '8px' }}>
-              Al hacer clic en "Registrame", estoy de acuerdo con los Términos y condiciones.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer style={{ 
-        backgroundColor: '#262623',
-        color: 'white',
-        padding: '60px 24px 24px',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)'
-      }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '40px'
-        }}>
-          <div>
-            <div style={{ marginBottom: '16px' }}>
-              <img src="/assets/recurso-6-3-x-1.png" alt="Somos Locales" style={{ height: '40px' }} />
-            </div>
-            <div style={{ display: 'flex', gap: '16px', marginTop: '24px' }}>
-              <a href="#" style={{ 
-                width: '32px', 
-                height: '32px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                color: 'white',
-                fontSize: '16px',
-                textDecoration: 'none'
-              }}>f</a>
-              <a href="#" style={{ 
-                width: '32px', 
-                height: '32px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                color: 'white',
-                fontSize: '16px',
-                textDecoration: 'none'
-              }}>t</a>
-              <a href="#" style={{ 
-                width: '32px', 
-                height: '32px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                color: 'white',
-                fontSize: '16px',
-                textDecoration: 'none'
-              }}>i</a>
-              <a href="#" style={{ 
-                width: '32px', 
-                height: '32px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                color: 'white',
-                fontSize: '16px',
-                textDecoration: 'none'
-              }}>y</a>
-            </div>
-          </div>
+          <FooterColumn>
+            <FooterTitle>SomosLocales</FooterTitle>
+            <FooterLinks>
+              <FooterLink><a href="#">Acerca de Nosotros</a></FooterLink>
+              <FooterLink><a href="#">Oportunidades</a></FooterLink>
+              <FooterLink><a href="#">Noticias</a></FooterLink>
+            </FooterLinks>
+          </FooterColumn>
           
-          <div>
-            <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '16px', color: '#FFD600' }}>
-              SomosLocales
-            </h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  Acerca de Nosotros
-                </a>
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  Oportunidades
-                </a>
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  Noticias
-                </a>
-              </li>
-            </ul>
-          </div>
+          <FooterColumn>
+            <FooterTitle>Contenido</FooterTitle>
+            <FooterLinks>
+              <FooterLink><a href="#">Quiniela</a></FooterLink>
+              <FooterLink><a href="#">Rankings</a></FooterLink>
+              <FooterLink><a href="#">Funciones</a></FooterLink>
+            </FooterLinks>
+          </FooterColumn>
           
-          <div>
-            <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '16px', color: '#FFD600' }}>
-              Contenido
-            </h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  Quiniela
-                </a>
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  Rankings
-                </a>
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  Funciones
-                </a>
-              </li>
-            </ul>
-            
-            <h3 style={{ fontSize: '16px', fontWeight: 'bold', margin: '24px 0 16px', color: '#FFD600' }}>
-              Redes
-            </h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  @SomosLocalesMX
-                </a>
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                <a href="#" style={{ color: 'white', textDecoration: 'none', fontSize: '14px' }}>
-                  @SomosLocalesMX
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+          <FooterColumn>
+            <FooterTitle>Redes</FooterTitle>
+            <FooterLinks>
+              <FooterLink><a href="#">@SomosLocalesMX</a></FooterLink>
+              <FooterLink><a href="#">@SomosLocalesMX</a></FooterLink>
+            </FooterLinks>
+          </FooterColumn>
+        </FooterContainer>
         
-        <div style={{ 
-          textAlign: 'center', 
-          marginTop: '60px', 
-          fontSize: '12px', 
-          color: 'rgba(255, 255, 255, 0.6)' 
-        }}>
+        <Copyright>
           All rights reserved 2024
-        </div>
-      </footer>
-    </div>
+        </Copyright>
+      </FooterSection>
+    </PageContainer>
   );
 }
 
