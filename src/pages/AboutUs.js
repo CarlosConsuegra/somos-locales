@@ -74,6 +74,13 @@ const HeroContainer = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const HeroContent = styled.div`
+  max-width: 60%;
 `;
 
 const HeroTitle = styled.h1`
@@ -87,17 +94,11 @@ const MissionText = styled.p`
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 40px;
-  max-width: 800px;
-`;
-
-const LogoContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 40px;
 `;
 
 const Logo = styled.img`
-  height: 60px;
+  width: 330px;
+  height: auto;
 `;
 
 // Decalogue Section
@@ -189,15 +190,17 @@ const KnowMoreContainer = styled.div`
 `;
 
 const IllustrationContainer = styled.div`
-  margin-top: 40px;
   position: relative;
-  height: 400px;
+  height: 583.7px;
+  width: 100%;
 `;
 
 const HandDrawnImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: 1185.6px;
+  height: 583.7px;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 `;
 
 // Team Section
@@ -393,7 +396,7 @@ const FooterContainer = styled.div`
 const FooterColumn = styled.div``;
 
 const FooterLogo = styled.img`
-  height: 50px;
+  height: 120px;
   margin-bottom: 24px;
 `;
 
@@ -562,13 +565,13 @@ function AboutUsPage() {
       
       <HeroSection>
         <HeroContainer>
-          <HeroTitle>Pasión por el Juego</HeroTitle>
-          <MissionText>
-            Nuestra misión va más allá de simplemente ser espectadores. Nos esforzamos por impulsar y aumentar la asistencia y el apoyo al fútbol femenil en México. Creemos en la importancia de involucrar a las familias y los niños en este deporte, creando una comunidad de aficionados apasionados y comprometidos.
-          </MissionText>
-          <LogoContainer>
-            <Logo src="/assets/logo.svg" alt="Somos Locales" />
-          </LogoContainer>
+          <HeroContent>
+            <HeroTitle>Pasión por el Juego</HeroTitle>
+            <MissionText>
+              Nuestra misión va más allá de simplemente ser espectadores. Nos esforzamos por impulsar y aumentar la asistencia y el apoyo al fútbol femenil en México. Creemos en la importancia de involucrar a las familias y los niños en este deporte, creando una comunidad de aficionados apasionados y comprometidos.
+            </MissionText>
+          </HeroContent>
+          <Logo src="/assets/logo.svg" alt="Somos Locales" />
         </HeroContainer>
       </HeroSection>
       
@@ -593,8 +596,6 @@ function AboutUsPage() {
       
       <KnowMoreSection>
         <KnowMoreContainer>
-          <SectionTitle>Conócenos más...</SectionTitle>
-          
           <IllustrationContainer>
             <HandDrawnImage src="/assets/nuestro-logo.svg" alt="Hand drawn notes" />
           </IllustrationContainer>
