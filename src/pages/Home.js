@@ -710,7 +710,7 @@ function HomePage() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    window.location.href = '#/register';
+    window.location.href = '/#/register';
   };
   
   return (
@@ -720,8 +720,8 @@ function HomePage() {
         <Header>
           <LogoLink>SL</LogoLink>
           <NavContainer>
-            <NavLink href="#/">Inicio</NavLink>
-            <NavLink href="#/nosotros">Nosotros</NavLink>
+            <NavLink href="/#/">Inicio</NavLink>
+            <NavLink href="/#/nosotros">Nosotros</NavLink>
             <LoginButton to="/login">Inicia sesión</LoginButton>
           </NavContainer>
         </Header>
@@ -780,7 +780,7 @@ function HomePage() {
             </GoogleButton>
             
             <LoginText>
-              ¿Ya tienes una cuenta? <a href="#/login">Inicia sesión</a>
+              ¿Ya tienes una cuenta? <a href="/#/login">Inicia sesión</a>
             </LoginText>
           </RegistrationCard>
         </HeroSection>
