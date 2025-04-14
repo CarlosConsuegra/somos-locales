@@ -74,7 +74,7 @@ const HeroSection = styled.div`
   position: relative;
   width: 100%;
   height: 673px;
-  background-image: url('/assets/Principal_Section.jpg');
+  background-image: url('./assets/Principal_Section.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -513,7 +513,7 @@ const MemberRole = styled.p`
 
 // Community Section - NEW
 const CommunitySection = styled.section`
-  background-image: url('/assets/frame-42731898.png');
+  background-image: url('./assets/frame-42731898.png');
   background-size: cover;
   background-position: center;
   padding: 80px 0;
@@ -710,7 +710,7 @@ function HomePage() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    window.location.href = '/register';
+    window.location.href = '#/register';
   };
   
   return (
@@ -720,8 +720,8 @@ function HomePage() {
         <Header>
           <LogoLink>SL</LogoLink>
           <NavContainer>
-            <NavLink href="/">Inicio</NavLink>
-            <NavLink href="/nosotros">Nosotros</NavLink>
+            <NavLink href="#/">Inicio</NavLink>
+            <NavLink href="#/nosotros">Nosotros</NavLink>
             <LoginButton to="/login">Inicia sesión</LoginButton>
           </NavContainer>
         </Header>
@@ -729,7 +729,7 @@ function HomePage() {
         {/* Hero Section */}
         <HeroSection>
           <SomosLocalesLogo>
-            <LogoImage src="/assets/recurso-6-3-x-1.png" alt="Somos Locales" />
+            <LogoImage src="./assets/recurso-6-3-x-1.png" alt="Somos Locales" />
           </SomosLocalesLogo>
           
           <HashtagText>#TIENESQUEVIVIRLO</HashtagText>
@@ -775,12 +775,12 @@ function HomePage() {
             </Divider>
             
             <GoogleButton>
-              <GoogleIcon src="/assets/social-icon.svg" alt="Google" />
+              <GoogleIcon src="./assets/social-icon.svg" alt="Google" />
               Continuar con Google
             </GoogleButton>
             
             <LoginText>
-              ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+              ¿Ya tienes una cuenta? <a href="#/login">Inicia sesión</a>
             </LoginText>
           </RegistrationCard>
         </HeroSection>
@@ -800,7 +800,7 @@ function HomePage() {
           <FeaturesGrid>
             <FeatureCard>
               <FeatureIcon>
-                <img src="/assets/layout-241.png" alt="Guías de estadios" />
+                <img src="./assets/layout-241.png" alt="Guías de estadios" />
               </FeatureIcon>
               <FeatureTitle>Guías de estadios</FeatureTitle>
               <FeatureDescription>
@@ -810,7 +810,7 @@ function HomePage() {
             
             <FeatureCard>
               <FeatureIcon>
-                <img src="/assets/app-screen-shot.png" alt="Quiniela" />
+                <img src="./assets/app-screen-shot.png" alt="Quiniela" />
               </FeatureIcon>
               <FeatureTitle>Quiniela</FeatureTitle>
               <FeatureDescription>
@@ -820,7 +820,7 @@ function HomePage() {
             
             <FeatureCard>
               <FeatureIcon>
-                <img src="/assets/property-1-image-background-lummi.png" alt="Gana recompensas" />
+                <img src="./assets/property-1-image-background-lummi.png" alt="Gana recompensas" />
               </FeatureIcon>
               <FeatureTitle>Gana recompensas</FeatureTitle>
               <FeatureDescription>
@@ -844,15 +844,15 @@ function HomePage() {
             
             <PhoneSlider>
               <SidePhone className="left">
-                <img src="/assets/app-screenshot@2x.png" alt="App Screenshot" />
+                <img src="./assets/app-screenshot@2x.png" alt="App Screenshot" />
               </SidePhone>
               
               <CenterPhone>
-                <img src="/assets/app-screen-shot.png" alt="App Screenshot" />
+                <img src="./assets/app-screen-shot.png" alt="App Screenshot" />
               </CenterPhone>
               
               <SidePhone className="right">
-                <img src="/assets/app-screenshot@3x.png" alt="App Screenshot" />
+                <img src="./assets/app-screenshot@3x.png" alt="App Screenshot" />
               </SidePhone>
             </PhoneSlider>
             
@@ -872,13 +872,13 @@ function HomePage() {
             <TeamContainer>
               <TeamMembers>
                 <TeamMember>
-                  <MemberPhoto src="/assets/image-lummi-avatar.png" alt="Karla H. Valdez" />
+                  <MemberPhoto src="./assets/image-lummi-avatar.png" alt="Karla H. Valdez" />
                   <MemberName>Karla H. Valdez</MemberName>
                   <MemberRole>CEO & Fundadora</MemberRole>
                 </TeamMember>
                 
                 <TeamMember>
-                  <MemberPhoto src="/assets/image-lummi-avatar-2.png" alt="Ana Paulina Sosa" />
+                  <MemberPhoto src="./assets/image-lummi-avatar-2.png" alt="Ana Paulina Sosa" />
                   <MemberName>Ana Paulina Sosa</MemberName>
                   <MemberRole>CEO & Fundadora</MemberRole>
                 </TeamMember>
@@ -919,7 +919,7 @@ function HomePage() {
         <FooterContainer>
           <div>
             <FooterLogo>
-              <img src="/assets/recurso-6-3-x-1.png" alt="Somos Locales" />
+              <img src="./assets/recurso-6-3-x-1.png" alt="Somos Locales" />
             </FooterLogo>
             <SocialLinks>
               <SocialLink href="#">f</SocialLink>
