@@ -1,15 +1,9 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Read package.json and parse it
-const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
-const homepage = packageJson.homepage || '';
-const repoName = homepage ? new URL(homepage).pathname : '/';
 
 export default {
   mode: 'production',
@@ -17,7 +11,7 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: repoName
+    publicPath: './' // This is the critical change
   },
   module: {
     rules: [
